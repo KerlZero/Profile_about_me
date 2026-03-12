@@ -31,6 +31,16 @@ export default function ResumePortfolio() {
         "Collaborated with Tech Lead, System Analyst, and Product Owner.",
       ],
     },
+     {
+      role: "System Analyst / Senior System Analyst",
+      company: "EPIC CONSULTING CO., LTD. / MIMO TECH COMPANY LIMITED",
+      period: "Jun 2021 – Nov 2022",
+      details: [
+        "Analyzed requirements and identified gaps before test execution.",
+        "Created detailed test scenarios and reported defects clearly to developers.",
+        "Collaborated with Tech Lead, System Analyst, and Product Owner.",
+      ],
+    },
   ];
 
   const projects = [
