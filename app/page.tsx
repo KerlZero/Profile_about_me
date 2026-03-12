@@ -1,438 +1,763 @@
 'use client'
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type CareerLevel =
+  | "senior-qa"
+  | "senior-tester"
+  | "senior-analyst"
+  | "analyst"
+  | "tester"
+  | "associate";
+
+type CareerItem = {
+  shortLabel: string;
+  year: string;
+  level: CareerLevel;
+  period: string;
+  role: string;
+  company: string;
+  project: string;
+  story: string;
+  projectTitle: string;
+  projectSummary: string;
+  responsibilities: string[];
+  skills: string[];
+  takeaway: string;
+};
+
+type AccentCard = {
+  title: string;
+  items: string[];
+  accent: string;
+};
+
+type CertificateCard = {
+  title: string;
+  issuer: string;
+  note: string;
+  accent: string;
+};
+
+const careerJourney: CareerItem[] = [
+  {
+    shortLabel: "ACCORD",
+    year: "2025",
+    level: "senior-qa",
+    period: "Sep 2025 - Dec 2025",
+    role: "Senior Software Quality Assurance",
+    company: "ACCORD INNOVATIONS CO., LTD.",
+    project: "Ascend Commerce (True VC)",
+    story:
+      "This role strengthened my end-to-end QA ownership in a complex e-commerce web project, combining requirement analysis, test design, backend validation, defect management, and stakeholder communication to support confident release decisions.",
+    projectTitle: "Ascend Commerce (True VC)",
+    projectSummary:
+      "Delivered end-to-end validation for an e-commerce web platform, covering backend processing, frontend behavior, requirement alignment, and production readiness from both technical and business perspectives.",
+    responsibilities: [
+      "Received requirements from the Tech Lead, analyzed the information, and created detailed test cases based on business requirements and system architecture.",
+      "Identified requirement conflicts, raised concerns proactively, and requested additional documentation or workflow clarification from the System Analyst or relevant stakeholders when needed.",
+      "Executed testing according to specifications and raised bugs or tickets clearly to inform the development team.",
+      "Communicated directly with the Product Owner when requirement conflicts affected business decisions.",
+      "Designed comprehensive test scenarios and test cases covering end-to-end business flows.",
+      "Performed backend testing including RESTful APIs, scheduled jobs, background processes, and downstream internal processing triggered by third-party services.",
+      "Managed, prioritized, and reported defects with clear reproduction steps, expected versus actual results, logs, and supporting evidence.",
+      "Coordinated with Developers, Operations, and external vendors to ensure timely and high-quality delivery.",
+    ],
+    skills: [
+      "End-to-End Testing",
+      "Scheduled Jobs",
+      "Requirement Analysis",
+      "Defect Management",
+      "Stakeholder Communication",
+    ],
+    takeaway:
+      "This experience reinforced the value of combining technical validation with strong requirement understanding and clear communication to support both software quality and sound business decisions.",
+  },
+  {
+    shortLabel: "MISUMI",
+    year: "2023",
+    level: "senior-tester",
+    period: "Mar 2023 - Jul 2025",
+    role: "Senior Software Tester",
+    company: "MISUMI (THAILAND) Co., Ltd.",
+    project: "Application and Web E-commerce",
+    story:
+      "This role expanded my experience in large-scale e-commerce quality assurance across web and mobile platforms, with strong focus on frontend behavior, API alignment, mobile debugging, test planning, and execution coordination.",
+    projectTitle: "Application and Web E-commerce",
+    projectSummary:
+      "Supported quality delivery for an e-commerce website and mobile applications on iOS and Android, combining frontend validation, API-related review, local debugging, and coordinated release execution.",
+    responsibilities: [
+      "Performed frontend-focused testing for e-commerce web and mobile applications across business flows and user interface behavior.",
+      "Reviewed certain functionalities together with API behavior to validate frontend and backend consistency.",
+      "Tested Android applications directly on devices using APK files and tested iOS builds through TestFlight.",
+      "Pulled source code to build applications locally for debugging and inspected logs through Android Studio and Xcode.",
+      "Verified API behavior and application integration through local debugging and frontend log analysis.",
+      "Planned testing scope and distributed execution tasks among vendors and junior testers.",
+      "Collaborated with the development team on complex testing scenarios to ensure full coverage of functionality and requirements.",
+      "Used Power Automate to manage test case workflows for each release and for large short-term projects.",
+    ],
+    skills: [
+      "E-commerce Testing",
+      "Web Testing",
+      "Mobile Testing",
+      "Android Studio",
+      "Xcode",
+      "Power Automate",
+      "Test Planning",
+    ],
+    takeaway:
+      "This role improved my ability to lead broader testing scope, coordinate multiple contributors, and investigate issues from both application and integration perspectives.",
+  },
+  {
+    shortLabel: "MIMO",
+    year: "2022",
+    level: "senior-analyst",
+    period: "July 2022 - Nov 2022",
+    role: "Senior System Analyst",
+    company: "Mimo tech",
+    project: "AIS FBB-Fibre Workflow",
+    story:
+      "This role expanded my responsibility from feature analysis into workflow ownership, migration validation, team guidance, and daily production support across business-critical onboarding systems.",
+    projectTitle: "AIS FBB-Fibre Workflow",
+    projectSummary:
+      "Led analysis and validation for customer profile and document verification systems that supported downstream order creation and installation scheduling across multiple onboarding channels.",
+    responsibilities: [
+      "Owned systems related to customer profile and document verification across onboarding channels before downstream order creation.",
+      "Worked with Oracle-based business logic implemented through packages and stored procedures, with outputs consumed by Java-based frontend services.",
+      "Supported platform migration from on-premise infrastructure to the cloud, including database transition from Oracle to PostgreSQL.",
+      "Validated and remediated converted database logic after vendor tools transformed Oracle procedures into PostgreSQL.",
+      "Manually adjusted unsupported syntax and functions to preserve original business behavior.",
+      "Supervised two developers and three testers while providing consultation on system logic and functionality design.",
+      "Coordinated with third-party platforms and cross-system stakeholders to ensure alignment.",
+      "Handled daily production support issues for each release.",
+    ],
+    skills: [
+      "Senior System Analysis",
+      "Database Migration Validation",
+      "Oracle / PostgreSQL",
+      "Team Coordination",
+      "Cross-system Integration",
+      "Production Support",
+    ],
+    takeaway:
+      "This role strengthened my ability to connect business logic, technical constraints, migration work, and production support into a complete delivery perspective.",
+  },
+  {
+    shortLabel: "EPIC",
+    year: "2021",
+    level: "analyst",
+    period: "Jun 2021 - Jun 2022",
+    role: "System Analyst",
+    company: "Epic Consulting Co., Ltd.",
+    project: "AIS FBB-Fibre Web Register",
+    story:
+      "This role marked my move into system analysis, starting with small- to medium-scale enhancements before expanding into channel growth initiatives, payment integration, and production support across customer subscription workflows.",
+    projectTitle: "AIS FBB-Fibre Web Register",
+    projectSummary:
+      "Supported requirement analysis and functional design for internet subscription systems, including enhancement work, new channel expansion, payment flow integration, and coordination across internal teams and external partners.",
+    responsibilities: [
+      "Prepared functional specifications for developers based on requirements briefed by the Scrum team.",
+      "Briefed testers on detailed testing requirements and supported both development and testing through deployment to production.",
+      "Handled enhancement and defect-fix scope for small- to medium-scale functionalities.",
+      "Supported a major initiative to expand subscription channels to Pocket Net WiFi while keeping the existing home internet workflow unaffected.",
+      "Helped define one-time payment flow support for the new channel, including QR code and credit card payment methods.",
+      "Oversaw developers and testers according to project scale while guiding business and system logic.",
+      "Acted as a key liaison with third-party partners to align requirements and execution.",
+      "Handled daily production support for each release cycle.",
+    ],
+    skills: [
+      "System Analysis",
+      "Functional Specification",
+      "Business Logic Guidance",
+      "Payment Flow Integration",
+      "Third-party Coordination",
+      "Production Support",
+      "RESTful APIs",
+    ],
+    takeaway:
+      "This role developed my ability to translate requirements into workable solutions, support delivery across teams, and balance new business scope with stability of existing workflows.",
+  },
+  {
+    shortLabel: "APAR",
+    year: "2018",
+    level: "tester",
+    period: "Sep 2018 - Mar 2021",
+    role: "Software Tester",
+    company: "APAR TECHNOLOGIES (THAILAND) LTD.",
+    project: "Backend & Enterprise Validation",
+    story:
+      "At this stage, I expanded from foundation-level testing into broader functional, integration, and regression validation across multiple environments, building stronger release discipline and enterprise testing exposure.",
+    projectTitle: "Multi-Environment Testing & Regression Coverage",
+    projectSummary:
+      "Supported testing in Dev, SIT, and UAT environments with strong focus on backend validation, regression execution, and defect tracking through closure.",
+    responsibilities: [
+      "Performed backend data validation using SQL queries.",
+      "Executed functional, integration, and regression testing.",
+      "Designed test cases, test steps, and test scenarios.",
+      "Executed regression test cases in Dev, SIT, and UAT environments and logged defects through closure during testing.",
+    ],
+    skills: [
+      "Regression Testing",
+      "Integration Testing",
+      "SIT/UAT",
+      "Defect Lifecycle",
+    ],
+    takeaway:
+      "This role strengthened my understanding of delivery cycles and taught me how to maintain quality consistently across repeated releases and multiple environments.",
+  },
+  {
+    shortLabel: "AWARE",
+    year: "2017",
+    level: "associate",
+    period: "Aug 2017 - Sep 2018",
+    role: "Associate Software Test Engineering",
+    company: "AWARE TECHNOLOGY SOLUTIONS",
+    project: "Enterprise System Testing",
+    story:
+      "This was the starting point of my QA career, where I built a strong foundation in SQL validation, structured test design, and disciplined documentation for backend-focused system verification.",
+    projectTitle: "Backend Validation & QA Foundation",
+    projectSummary:
+      "Worked on backend-focused validation by checking database results against expected business rules and documenting structured test evidence for reliable execution.",
+    responsibilities: [
+      "Executed SQL queries to validate backend data based on business requirements.",
+      "Developed and designed test cases, test steps, and test scenarios.",
+      "Documented test results with test status and defect information.",
+    ],
+    skills: [
+      "SQL",
+      "Test Case Design",
+      "Backend Validation",
+      "Defect Documentation",
+    ],
+    takeaway:
+      "This role built the discipline of structured testing and taught me the importance of accuracy when validating system behavior from the data layer upward.",
+  },
+];
+
+const toolCards: AccentCard[] = [
+  {
+    title: "Testing & QA",
+    items: ["Manual Testing", "Functional Testing", "Integration Testing", "Regression Testing", "User Acceptance Testing", "End-to-End Testing"],
+    accent: "from-cyan-500/20 to-blue-500/10",
+  },
+  {
+    title: "API & Data",
+    items: ["RESTful APIs", "SQL", "PL/SQL", "Oracle", "PostgreSQL", "Scheduled Jobs"],
+    accent: "from-violet-500/20 to-indigo-500/10",
+  },
+  {
+    title: "Tools & Platforms",
+    items: ["Postman", "SoapUI", "JIRA", "Confluence", "pgAdmin", "PL/SQL Developer", "Android Studio", "Xcode", "TestFlight"],
+    accent: "from-emerald-500/20 to-cyan-500/10",
+  },
+  {
+    title: "Automation & Workflow",
+    items: ["Power Automate", "Playwright (Basic)", "Automation Workflow", "Release Tracking","Execution Coordination"],
+    accent: "from-pink-500/20 to-rose-500/10",
+  },
+];
+
+const certificates: CertificateCard[] = [
+  {
+    title: "IT PASSPORT EXAMINATION (LEVEL : IP)",
+    issuer: "ITPE - NSTDA ACADEMY",
+    note: "Validated foundational knowledge in information technology, software development concepts, systems, networks, security, and project-related IT understanding.",
+    accent: "from-sky-500/20 to-blue-500/10",
+  },
+  {
+    title: "APPLICATION DEVELOPMENT FUNDAMENTALS",
+    issuer: "Microsoft Technology Associate (MTA)",
+    note: "Covered core application development fundamentals including programming concepts, software logic, and basic development principles.",
+    accent: "from-violet-500/20 to-fuchsia-500/10",
+  },
+];
+
+const projectGroups: AccentCard[] = [
+  {
+    title: "Telecom Platforms",
+    items: [
+      "Customer profile and document verification workflows",
+      "Order preparation and installation appointment scheduling",
+      "Oracle to PostgreSQL business logic migration",
+      "Cross-system coordination with third-party platforms",
+      "Subscription channel support and service workflow alignment",
+      "Production support across release cycles and operational issues",
+    ],
+    accent: "from-emerald-500/20 to-teal-500/10",
+  },
+  {
+    title: "E-Commerce Platforms",
+    items: [
+      "Web and mobile user journey validation",
+      "Frontend and backend behavior consistency checks",
+      "RESTful API, scheduled job, and background process testing",
+      "Release coordination across business-critical features",
+      "Device-based testing for Android APK and iOS TestFlight builds",
+      "Debugging support through local builds and log inspection",
+    ],
+    accent: "from-amber-500/20 to-orange-500/10",
+  },
+  {
+    title: "Leadership & Delivery",
+    items: [
+      "Test planning and task distribution",
+      "Supervising developers and testers",
+      "Production support by release cycle",
+      "Cross-functional collaboration with operations and vendors",
+      "Requirement alignment across internal teams and partners",
+      "Delivery support for both project changes and production issues",
+    ],
+    accent: "from-rose-500/20 to-pink-500/10",
+  },
+];
+
+const yearMarkerClass: Record<CareerLevel, string> = {
+  "senior-qa": "border-rose-300 bg-rose-300 text-slate-950",
+  "senior-tester": "border-cyan-300 bg-cyan-300 text-slate-950",
+  "senior-analyst": "border-violet-300 bg-violet-300 text-slate-950",
+  analyst: "border-emerald-300 bg-emerald-300 text-slate-950",
+  tester: "border-amber-300 bg-amber-300 text-slate-950",
+  associate: "border-slate-300 bg-slate-300 text-slate-950",
+};
+
+const sectionStyles = {
+  hero: "bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(30,41,59,0.96),rgba(49,46,129,0.82))]",
+  panelA: "bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(17,24,39,0.96),rgba(14,116,144,0.18))]",
+  panelB: "bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(23,23,23,0.96),rgba(126,34,206,0.18))]",
+  panelC: "bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(17,24,39,0.96),rgba(5,150,105,0.16))]",
+  panelD: "bg-[linear-gradient(135deg,rgba(15,23,42,0.94),rgba(28,25,23,0.96),rgba(234,88,12,0.16))]",
+} as const;
+
+function SectionHeading({
+  eyebrow,
+  title,
+  accent,
+}: {
+  eyebrow: string;
+  title: string;
+  accent: string;
+}) {
+  return (
+    <div>
+      <div className={`mb-5 h-1 w-20 rounded-full bg-gradient-to-r ${accent} md:mb-6 md:w-24`} />
+      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-300 md:text-sm">{eyebrow}</p>
+      <h3 className="mt-2 text-[1.65rem] font-semibold leading-tight text-white md:mt-3 md:text-3xl">{title}</h3>
+    </div>
+  );
+}
 
 export default function ResumePortfolio() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const careerJourney = [
-    {
-      shortLabel: "AWARE",
-      period: "Aug 2017 - Sep 2018",
-      role: "Associate Software Test Engineering (Permanent)",
-      company: "AWARE TECHNOLOGY SOLUTIONS",
-      story:
-        "This was the starting point of my QA career, where I built a strong foundation in software testing, SQL validation, and understanding how system behavior should align with business requirements.",
-      projectTitle: "Backend Validation & Structured QA Foundation",
-      projectSummary:
-        "Worked on backend-focused validation tasks by checking database results against business rules and preparing structured test artifacts for consistent test execution.",
-      responsibilities: [
-        "Executed SQL queries to validate backend data against business requirements.",
-        "Designed and documented test cases, test steps, and test scenarios.",
-        "Recorded test execution results and defect details in a structured format.",
-      ],
-      skills: ["SQL", "Test Case Design", "Backend Validation", "Defect Documentation"],
-      takeaway:
-        "I learned the discipline of structured testing and the importance of accuracy when validating system behavior against detailed business requirements.",
-    },
-    {
-      shortLabel: "APAR",
-      period: "Sep 2018 - Mar 2021",
-      role: "Software Tester (Contract)",
-      company: "APAR TECHNOLOGIES (THAILAND) LTD.",
-      story:
-        "In this stage, I expanded from basic validation into full functional, integration, and regression testing across multiple environments. This role strengthened my understanding of release cycles and quality control in enterprise delivery.",
-      projectTitle: "Multi-Environment Testing & Regression Coverage",
-      projectSummary:
-        "Supported testing in Dev, SIT, and UAT environments with strong focus on backend validation, regression execution, and issue tracking through closure.",
-      responsibilities: [
-        "Performed backend data validation using SQL queries.",
-        "Executed functional, integration, and regression testing across multiple environments.",
-        "Designed test cases, test steps, and test scenarios for release validation.",
-        "Logged defects and tracked them through closure during the testing lifecycle.",
-      ],
-      skills: ["Regression Testing", "Integration Testing", "SIT/UAT", "Defect Lifecycle"],
-      takeaway:
-        "I learned how testing supports the full software delivery cycle and how to maintain quality consistently across repeated releases and environments.",
-    },
-    {
-      shortLabel: "EPIC / MIMO",
-      period: "Jun 2021 - Nov 2022",
-      role: "System Analyst (Contract) / Senior System Analyst (Permanent)",
-      company: "EPIC CONSULTING CO., LTD. / MIMO TECH COMPANY LIMITED",
-      story:
-        "This phase shifted my perspective from validating software to shaping how systems should work. I moved deeper into requirement analysis, workflow design, production support, and system coordination for telecom service platforms.",
-      projectTitle: "Telecom Onboarding & Subscription Service Platforms",
-      projectSummary:
-        "Worked on customer onboarding, service subscription, document verification, installation scheduling, payment channels, and business flow improvements for telecom-related platforms.",
-      responsibilities: [
-        "Analyzed business requirements and translated them into functional specifications.",
-        "Designed workflows for onboarding, verification, order creation, and installation scheduling.",
-        "Coordinated with developers, testers, and third-party vendors to align integrations and delivery scope.",
-        "Validated database logic and supported business rule implementation across Oracle and PostgreSQL environments.",
-        "Supported production issues and change requests across release cycles.",
-      ],
-      skills: ["Requirement Analysis", "Workflow Design", "System Documentation", "Production Support"],
-      takeaway:
-        "I learned to view software from a broader business perspective, focusing not only on whether the system works, but whether the process truly fits the business need end to end.",
-    },
-    {
-      shortLabel: "MISUMI",
-      period: "Mar 2023 - Jul 2025",
-      role: "Senior Software Tester (Permanent)",
-      company: "MISUMI (THAILAND) CO., LTD.",
-      story:
-        "This role deepened my experience in e-commerce platforms, web and mobile validation, and release coordination. I worked across frontend, backend behavior, mobile builds, and integration points to ensure stable end-to-end delivery.",
-      projectTitle: "E-Commerce Web & Mobile Platform Validation",
-      projectSummary:
-        "Led testing efforts for e-commerce systems covering web and mobile applications, API consistency checks, mobile build validation, and large-scope release coordination.",
-      responsibilities: [
-        "Led testing activities for e-commerce web and mobile applications.",
-        "Conducted frontend testing alongside backend and API behavior validation.",
-        "Tested Android APK and iOS TestFlight builds across physical devices.",
-        "Investigated logs via Android Studio and Xcode to analyze API and integration behavior.",
-        "Planned test cycles and coordinated tasks across vendors and junior testers.",
-        "Used Power Automate to manage and track test workflows for releases.",
-      ],
-      skills: ["E-Commerce Testing", "Mobile Testing", "API Validation", "Release Coordination"],
-      takeaway:
-        "I strengthened my ability to manage complex testing scopes, coordinate multiple stakeholders, and maintain quality across different channels and release timelines.",
-    },
-    {
-      shortLabel: "ACCORD",
-      period: "Sep 2025 - Dec 2025",
-      role: "Senior Software Quality Assurance (Contract)",
-      company: "ACCORD INNOVATIONS CO., LTD.",
-      story:
-        "This role sharpened my focus on requirement understanding, risk identification, and business impact analysis before execution. I worked closely with technical and business stakeholders to improve testing clarity and release confidence.",
-      projectTitle: "End-to-End QA for E-Commerce Web Project",
-      projectSummary:
-        "Supported an e-commerce web platform from backend to frontend, with strong focus on requirement analysis, detailed test design, defect reporting, and communication of requirement gaps.",
-      responsibilities: [
-        "Analyzed requirements from the Tech Lead and created detailed test cases from business and system needs.",
-        "Identified requirement conflicts and requested clarification from analysts and stakeholders.",
-        "Executed functional, integration, and UI testing while reporting defects clearly to the development team.",
-        "Communicated directly with Product Owners when requirement conflicts affected business decisions.",
-      ],
-      skills: ["Requirement Gap Analysis", "Risk-Based Testing", "Stakeholder Communication", "E2E Validation"],
-      takeaway:
-        "I reinforced the importance of understanding requirements deeply before testing begins, especially when unclear requirements can impact implementation, quality, and business decisions.",
-    },
-  ];
-
-  const skillStages = [
-    {
-      title: "Foundation",
-      description: "Core testing fundamentals built early in my career.",
-      items: ["SQL", "Test Case Design", "Functional Testing", "Backend Validation"],
-    },
-    {
-      title: "Growth",
-      description: "Expanded coverage across release cycles and environments.",
-      items: ["Regression Testing", "Integration Testing", "SIT / UAT", "Defect Lifecycle"],
-    },
-    {
-      title: "Business Understanding",
-      description: "Moved beyond execution into process and requirement thinking.",
-      items: ["Requirement Analysis", "Workflow Design", "System Documentation", "Production Support"],
-    },
-    {
-      title: "Current Focus",
-      description: "Combining structured QA with modern tooling and broader ownership.",
-      items: ["API Validation", "E-Commerce Testing", "Cross-team Collaboration", "Playwright (Basic)"],
-    },
-  ];
-
-  const projectGroups = [
-    {
-      title: "Telecom Platforms",
-      items: [
-        "Customer onboarding workflow",
-        "Subscription service enhancements",
-        "Document verification and installation scheduling",
-        "Payment flow improvements and channel expansion",
-      ],
-    },
-    {
-      title: "E-Commerce Platforms",
-      items: [
-        "Web and mobile user journey validation",
-        "Frontend and backend behavior consistency checks",
-        "API and integration verification",
-        "Release readiness across large testing scopes",
-      ],
-    },
-    {
-      title: "Enterprise Validation",
-      items: [
-        "Backend data verification with SQL",
-        "Regression testing across Dev, SIT, and UAT",
-        "Business flow validation",
-        "Production issue investigation and release support",
-      ],
-    },
-  ];
-
-  const activeRole = careerJourney[activeTab];
-
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.12),_transparent_22%),radial-gradient(circle_at_80%_18%,_rgba(168,85,247,0.12),_transparent_20%),radial-gradient(circle_at_50%_100%,_rgba(245,158,11,0.08),_transparent_20%),linear-gradient(180deg,_#020617_0%,_#0b1120_45%,_#111827_100%)] text-white">
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-slate-950/65 backdrop-blur-2xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <div>
-            <h1 className="text-lg font-semibold tracking-wide">Saran Chuephoodee</h1>
-            <p className="text-sm text-slate-400">Senior Software Tester / System Analyst</p>
+            <h1 className="text-lg font-semibold tracking-wide sm:text-xl">Saran Chuephoodee</h1>
+            <p className="mt-1 text-xs text-slate-400 sm:text-sm">Senior Software Tester / System Analyst</p>
           </div>
-          <nav className="hidden gap-6 text-sm text-slate-300 md:flex">
-            <a href="#story" className="hover:text-white">My Story</a>
-            <a href="#journey" className="hover:text-white">Career Journey</a>
-            <a href="#skills" className="hover:text-white">Skills</a>
-            <a href="#projects" className="hover:text-white">Projects</a>
-            <a href="#contact" className="hover:text-white">Contact</a>
+          <nav className="hidden gap-5 text-sm text-slate-300 lg:flex">
+            <a href="#overview" className="transition hover:text-cyan-300">Overview</a>
+            <a href="#journey" className="transition hover:text-cyan-300">Journey</a>
+            <a href="#tools" className="transition hover:text-cyan-300">Tools</a>
+            <a href="#projects" className="transition hover:text-cyan-300">Domains</a>
+            <a href="#certificates" className="transition hover:text-cyan-300">Certifications</a>
+            <a href="#education" className="transition hover:text-cyan-300">Education</a>
+            <a href="#contact" className="transition hover:text-cyan-300">Contact</a>
           </nav>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-12">
-        <section className="grid items-center gap-10 py-16 md:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <p className="mb-3 inline-block rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1 text-sm text-cyan-300">
-              Career Story Portfolio
-            </p>
-            <h2 className="text-4xl font-bold leading-tight md:text-6xl">
-              From software testing fundamentals to business-focused quality assurance.
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              I am Saran Chuephoodee, a QA and System Analysis professional with 8 years of experience across Telecom, Insurance, and E-Commerce domains. My journey has grown from backend validation and test execution into requirement analysis, workflow thinking, and end-to-end quality ownership.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#journey"
-                className="rounded-2xl bg-cyan-400 px-6 py-3 font-medium text-slate-950 transition hover:scale-[1.02]"
-              >
-                View My Journey
-              </a>
-              <a
-                href="#contact"
-                className="rounded-2xl border border-white/15 px-6 py-3 font-medium text-white transition hover:bg-white/5"
-              >
-                Contact Me
-              </a>
-            </div>
-          </div>
-
-          <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 p-8 shadow-2xl">
-            <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-cyan-400/10 blur-3xl" />
-            <div className="absolute -bottom-10 -left-10 h-36 w-36 rounded-full bg-blue-500/10 blur-3xl" />
-
-            <div className="relative space-y-6">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.24em] text-cyan-300">Profile Snapshot</p>
-                  <h3 className="mt-3 text-2xl font-semibold">Quality + Analysis</h3>
-                </div>
-                <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-right">
-                  <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Location</p>
-                  <p className="mt-1 text-sm font-medium text-white">Bangkok, Thailand</p>
-                </div>
-              </div>
-
-              <p className="max-w-xl text-sm leading-7 text-slate-300">
-                Experienced in backend validation, requirement analysis, system integration, and end-to-end testing with a strong ability to connect business needs to practical quality assurance.
+      <main className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:space-y-8 sm:py-10 md:space-y-10 lg:space-y-12 lg:py-12">
+        <section className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.28)] sm:p-8 lg:rounded-[2rem] lg:p-12 ${sectionStyles.hero}`}>
+          <div className="grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
+            <div className="max-w-2xl">
+              <div className="mb-5 h-1 w-20 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-400 sm:mb-6 sm:w-24" />
+              <p className="mb-3 inline-flex rounded-full bg-white/10 px-3 py-1 text-xs text-cyan-200 ring-1 ring-white/10 sm:px-4 sm:text-sm">
+                Career Story
               </p>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Experience</p>
-                  <p className="mt-2 text-3xl font-bold">8 Years</p>
-                  <p className="mt-2 text-sm text-slate-300">Testing, analysis, validation</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Domains</p>
-                  <p className="mt-2 text-3xl font-bold">3 Core</p>
-                  <p className="mt-2 text-sm text-slate-300">Telecom, Insurance, E-Commerce</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Strength</p>
-                  <p className="mt-2 text-2xl font-bold">API / Flow</p>
-                  <p className="mt-2 text-sm text-slate-300">Business rule and data validation</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Current Focus</p>
-                  <p className="mt-2 text-2xl font-bold">Playwright</p>
-                  <p className="mt-2 text-sm text-slate-300">Growing automation capability</p>
-                </div>
+              <h2 className="text-[2rem] font-bold leading-[1.08] sm:text-[2.5rem] md:text-5xl lg:text-6xl">
+                Building quality across software, systems, and business workflows.
+              </h2>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300 sm:mt-6 sm:text-base sm:leading-8 md:text-lg">
+                I'm Saran Chuephoodee, Senior Software Tester and System Analysis with 8 years of experience across Telecom, Insurance, and E-Commerce domains.
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
+                <a
+                  href="#journey"
+                  className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-5 py-3 text-sm font-medium text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:scale-[1.02] sm:px-6"
+                >
+                  View My Journey
+                </a>
+                <a
+                  href="/CV_Saran_11032026.pdf"
+                  download
+                  className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-violet-500/80 to-fuchsia-500/80 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.02] sm:px-6"
+                >
+                  Download CV
+                </a>
               </div>
+            </div>
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
-                <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Core Value</p>
-                <p className="mt-3 text-sm leading-7 text-slate-300">
-                  Turning complex requirements into clear validation paths, practical test coverage, and confident release decisions.
-                </p>
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur-xl sm:p-7 lg:rounded-[2rem] lg:p-8 xl:p-9">
+              <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-cyan-400/18 blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 h-36 w-36 rounded-full bg-violet-500/18 blur-3xl" />
+
+              <div className="relative space-y-5 sm:space-y-6">
+                <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:items-center sm:text-left md:gap-6">
+                  <div className="h-28 w-28 shrink-0 overflow-hidden rounded-[1.5rem] ring-1 ring-white/10 shadow-lg shadow-cyan-500/20 sm:h-35 sm:w-35 lg:h-40 lg:w-40 lg:rounded-[2rem]">
+                    <img
+                      src="/profile.jpg"
+                      alt="Saran Chuephoodee"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-2xl font-semibold sm:text-[1.65rem] lg:text-[1.5rem]">Quality + Analysis</h3>
+                    <p className="mt-2 text-sm text-slate-300">Bangkok, Thailand</p>
+                    <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-[15px]">
+                      Experienced in backend validation, requirement analysis, system integration, and end-to-end testing with a strong ability to connect business needs to practical quality assurance.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                  <div className="rounded-2xl bg-gradient-to-br from-cyan-500/15 to-sky-500/10 p-4 ring-1 ring-white/10 backdrop-blur sm:p-5">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-300 sm:text-xs">Experience</p>
+                    <p className="mt-2 text-2xl font-bold sm:text-3xl">8 Years</p>
+                    <p className="mt-2 text-sm text-slate-300">Testing, analysis, validation</p>
+                  </div>
+                  <div className="rounded-2xl bg-gradient-to-br from-violet-500/15 to-fuchsia-500/10 p-4 ring-1 ring-white/10 backdrop-blur sm:p-5">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-300 sm:text-xs">Domains</p>
+                    <p className="mt-2 text-2xl font-bold sm:text-3xl">3 Core</p>
+                    <p className="mt-2 text-sm text-slate-300">Telecom, Insurance, E-Commerce</p>
+                  </div>
+                  <div className="rounded-2xl bg-gradient-to-br from-emerald-500/15 to-teal-500/10 p-4 ring-1 ring-white/10 backdrop-blur sm:p-5">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-300 sm:text-xs">Strength</p>
+                    <p className="mt-2 text-xl font-bold sm:text-2xl">API / Flow</p>
+                    <p className="mt-2 text-sm text-slate-300">Business rule and data validation</p>
+                  </div>
+                  <div className="rounded-2xl bg-gradient-to-br from-amber-500/15 to-orange-500/10 p-4 ring-1 ring-white/10 backdrop-blur sm:p-5">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-300 sm:text-xs">Current Focus</p>
+                    <p className="mt-2 text-xl font-bold sm:text-2xl">Playwright</p>
+                    <p className="mt-2 text-sm text-slate-300">Growing automation capability</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="story" className="py-14">
-          <div className="max-w-4xl">
-            <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">My Story</p>
-            <h3 className="mt-3 text-3xl font-semibold">How my career has grown</h3>
-            <p className="mt-6 leading-8 text-slate-300">
-              I started with backend validation and structured testing, where I learned how to check data accuracy and build clear test scenarios. Over time, I expanded into functional, integration, and regression testing across multiple environments. Later, I moved into system analysis and requirement design, which helped me see software not only from a testing perspective, but also from the business process view. Today, I combine QA execution, requirement understanding, and collaboration across teams to help deliver reliable software with stronger release confidence.
-            </p>
-          </div>
+        <section id="overview" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelA}`}>
+          <SectionHeading
+            eyebrow="Professional Overview"
+            title="Built on quality, systems thinking, and ownership"
+            accent="from-cyan-400 via-sky-400 to-violet-400"
+          />
+          <p className="mt-6 text-[15px] leading-8 text-slate-300 md:text-base">
+            I started with backend validation and structured testing, where I learned how to check data accuracy and build clear test scenarios. Over time, I expanded into functional, integration, and regression testing across multiple environments. Later, I moved into system analysis and requirement design, which helped me see software not only from a testing perspective, but also from the business process view. Today, I combine QA execution, requirement understanding, and collaboration across teams to help deliver reliable software with stronger release confidence.
+          </p>
         </section>
 
-        <section id="journey" className="py-14">
-          <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Career Journey</p>
-          <h3 className="mt-3 text-3xl font-semibold">The story behind each role</h3>
-          <p className="mt-4 max-w-3xl text-slate-300">
-            Each step in my career helped me build new technical skills, broader business understanding, and stronger ownership of quality.
-          </p>
+        <section id="journey" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelB}`}>
+          <SectionHeading
+            eyebrow="Career Journey"
+            title="Career timeline and highlights"
+            accent="from-violet-400 via-fuchsia-400 to-cyan-400"
+          />
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-3">
-              <div className="space-y-2">
+          <div className="mt-8 grid gap-8 xl:grid-cols-[240px_minmax(0,1fr)] xl:gap-10">
+            <div className="relative hidden xl:block">
+              <div className="absolute bottom-2 left-[18px] top-2 w-px bg-white/10" />
+              <div className="space-y-4">
                 {careerJourney.map((item, index) => {
                   const isActive = activeTab === index;
                   return (
                     <button
                       key={`${item.role}-${item.company}`}
                       onClick={() => setActiveTab(index)}
-                      className={`w-full rounded-2xl border px-4 py-4 text-left transition ${
-                        isActive
-                          ? "border-cyan-400/40 bg-cyan-400/10"
-                          : "border-white/5 bg-transparent hover:bg-white/5"
-                      }`}
+                      className="group relative flex w-full items-start gap-4 rounded-2xl p-2 text-left"
                     >
-                      <p className={`text-sm font-semibold ${isActive ? "text-cyan-300" : "text-white"}`}>
-                        {item.shortLabel}
-                      </p>
-                      <p className="mt-1 text-sm text-slate-300">{item.role}</p>
-                      <p className="mt-1 text-xs text-slate-500">{item.period}</p>
+                      <div
+                        className={`relative z-10 mt-1 flex h-9 w-9 items-center justify-center rounded-full border text-xs font-semibold transition ${
+                          isActive
+                            ? yearMarkerClass[item.level]
+                            : "border-white/20 bg-slate-950 text-slate-300 group-hover:border-cyan-300"
+                        }`}
+                      >
+                        {item.year}
+                      </div>
+                      <div
+                        className={`min-w-0 rounded-2xl px-4 py-3 transition ${
+                          isActive
+                            ? "bg-gradient-to-r from-cyan-400/15 to-violet-400/15 ring-1 ring-cyan-400/20"
+                            : "bg-white/5 group-hover:bg-white/10"
+                        }`}
+                      >
+                        <p className={`text-sm font-semibold ${isActive ? "text-cyan-200" : "text-white"}`}>{item.shortLabel}</p>
+                        <p className="mt-1 text-xs text-slate-400">{item.period}</p>
+                      </div>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <div className="flex flex-col gap-4 border-b border-white/10 pb-6 md:flex-row md:items-start md:justify-between">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">{activeRole.shortLabel}</p>
-                  <h4 className="mt-2 text-2xl font-semibold">{activeRole.role}</h4>
-                  <p className="mt-2 text-slate-300">{activeRole.company}</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-slate-300">
-                  {activeRole.period}
-                </div>
-              </div>
+            <div className="space-y-4">
+              {careerJourney.map((item, index) => {
+                const isActive = activeTab === index;
+                return (
+                  <motion.div
+                    key={`${item.company}-${item.period}`}
+                    layout
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                    className={`overflow-hidden rounded-3xl transition ${
+                      isActive
+                        ? "bg-[linear-gradient(135deg,rgba(14,23,42,0.88),rgba(30,41,59,0.9))] shadow-[0_24px_80px_rgba(2,12,27,0.55)] ring-1 ring-cyan-400/20 backdrop-blur-2xl"
+                        : "bg-white/[0.04]"
+                    }`}
+                  >
+                    <button
+                      onClick={() => setActiveTab(index)}
+                      className="flex w-full flex-col gap-4 px-5 py-5 text-left sm:px-6 xl:flex-row xl:items-center xl:justify-between"
+                    >
+                      <div>
+                        <div className="mb-3 flex items-center gap-3 xl:hidden">
+                          <div
+                            className={`flex h-8 w-8 items-center justify-center rounded-full border text-[11px] font-semibold ${yearMarkerClass[item.level]}`}
+                          >
+                            {item.year}
+                          </div>
+                          <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">{item.shortLabel}</p>
+                        </div>
+                        <p className="hidden text-sm uppercase tracking-[0.2em] text-cyan-300 xl:block">{item.shortLabel}</p>
+                        <h4 className="mt-1 text-lg font-semibold leading-snug sm:text-xl md:text-[1.35rem]">{item.role}</h4>
+                        <p className="mt-2 text-sm text-slate-300 md:text-base">{item.company}</p>
+                        <p className="mt-2 text-sm leading-6 text-slate-400">Project: {item.project}</p>
+                      </div>
+                      <div className="w-fit shrink-0 rounded-2xl bg-white/5 px-4 py-3 text-sm text-slate-300 ring-1 ring-white/10">
+                        {item.period}
+                      </div>
+                    </button>
 
-              <div className="mt-6 space-y-6">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Role Story</p>
-                  <p className="mt-3 leading-8 text-slate-300">{activeRole.story}</p>
-                </div>
+                    <AnimatePresence initial={false}>
+                      {isActive && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-5 pb-5 pt-1 sm:px-6 sm:pb-6">
+                            <div className="space-y-5 sm:space-y-6">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Role Story</p>
+                                <p className="mt-3 text-[15px] leading-8 text-slate-300 md:text-base">{item.story}</p>
+                              </div>
 
-                <div className="rounded-3xl border border-cyan-400/15 bg-cyan-400/5 p-5">
-                  <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Project / Domain Highlight</p>
-                  <h5 className="mt-3 text-xl font-semibold">{activeRole.projectTitle}</h5>
-                  <p className="mt-3 leading-7 text-slate-300">{activeRole.projectSummary}</p>
-                </div>
+                              <div className="rounded-3xl bg-gradient-to-r from-cyan-500/10 to-violet-500/10 p-5 ring-1 ring-white/10">
+                                <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Project Highlight</p>
+                                <h5 className="mt-3 text-xl font-semibold leading-snug md:text-[1.3rem]">{item.projectTitle}</h5>
+                                <p className="mt-3 text-[15px] leading-8 text-slate-300 md:text-base">{item.projectSummary}</p>
+                              </div>
 
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">What I Did</p>
-                  <ul className="mt-4 space-y-3 text-slate-300">
-                    {activeRole.responsibilities.map((detail) => (
-                      <li key={detail} className="flex gap-3 rounded-2xl border border-white/5 bg-slate-950/40 p-4">
-                        <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-cyan-300" />
-                        <span className="leading-7">{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Responsibilities</p>
+                                <ul className="mt-4 space-y-3 text-slate-300">
+                                  {item.responsibilities.map((detail) => (
+                                    <li key={detail} className="flex gap-3 rounded-2xl bg-white/[0.04] p-4 ring-1 ring-white/5">
+                                      <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-cyan-300" />
+                                      <span className="text-[15px] leading-7 md:text-base">{detail}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
 
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Skills I Built</p>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    {activeRole.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="rounded-full border border-white/10 bg-slate-900 px-4 py-2 text-sm text-slate-200"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Skills Built</p>
+                                <div className="mt-4 flex flex-wrap gap-3">
+                                  {item.skills.map((skill) => (
+                                    <span
+                                      key={skill}
+                                      className="rounded-full bg-gradient-to-r from-slate-800 to-slate-900 px-4 py-2 text-sm text-slate-100 ring-1 ring-white/5"
+                                    >
+                                      {skill}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
 
-                <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-5">
-                  <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">What I Learned</p>
-                  <p className="mt-3 leading-7 text-slate-300">{activeRole.takeaway}</p>
-                </div>
-              </div>
+                              <div className="rounded-3xl bg-slate-950/60 p-5 ring-1 ring-white/5">
+                                <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Key Takeaway</p>
+                                <p className="mt-3 text-[15px] leading-8 text-slate-300 md:text-base">{item.takeaway}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        <section id="skills" className="py-14">
-          <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Skills Over Time</p>
-          <h3 className="mt-3 text-3xl font-semibold">How my skill set has evolved</h3>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {skillStages.map((stage) => (
-              <div key={stage.title} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">{stage.title}</p>
-                <p className="mt-4 leading-7 text-slate-300">{stage.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {stage.items.map((item) => (
-                    <span key={item} className="rounded-full border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-200">
-                      {item}
-                    </span>
-                  ))}
+        <section id="tools" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelD}`}>
+          <SectionHeading
+            eyebrow="Tools & Technologies"
+            title="Tools that support delivery"
+            accent="from-amber-400 via-orange-400 to-rose-400"
+          />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:mt-10 xl:grid-cols-4 xl:gap-6 xl:items-stretch">
+            {toolCards.map((card) => (
+              <div key={card.title} className={`rounded-3xl bg-gradient-to-br ${card.accent} p-[1px] h-full`}>
+                <div className="flex h-full flex-col rounded-3xl bg-slate-950/80 p-5 transition duration-300 hover:-translate-y-1 hover:bg-slate-900/90 sm:p-6">
+                  <h4 className="text-lg font-semibold leading-snug md:text-[1.05rem]">{card.title}</h4>
+                  <div className="mt-5 flex flex-wrap content-start gap-2">
+                    {card.items.map((item) => (
+                      <span key={item} className="rounded-full bg-white/5 px-3 py-2 text-sm text-slate-200 ring-1 ring-white/10">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section id="projects" className="py-14">
-          <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Projects & Domains</p>
-          <h3 className="mt-3 text-3xl font-semibold">The kinds of systems I have worked on</h3>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <section id="projects" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelA}`}>
+          <SectionHeading
+            eyebrow="Domain Exposure"
+            title="Domains and delivery scope"
+            accent="from-cyan-400 via-violet-400 to-fuchsia-400"
+          />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:mt-10 xl:grid-cols-3 xl:gap-6">
             {projectGroups.map((group) => (
-              <div key={group.title} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <h4 className="text-xl font-semibold">{group.title}</h4>
-                <ul className="mt-5 space-y-3 text-slate-300">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-2 h-2 w-2 rounded-full bg-cyan-300" />
-                      <span className="leading-7">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div key={group.title} className={`rounded-3xl bg-gradient-to-br ${group.accent} p-[1px] h-full ${group.title === "Leadership & Delivery" ? "sm:col-span-2 xl:col-span-1" : ""}`}>
+                <div className="flex h-full flex-col rounded-3xl bg-slate-950/80 p-5 sm:p-6">
+                  <h4 className="text-xl font-semibold leading-snug md:text-[1.3rem]">{group.title}</h4>
+                  <ul className="mt-5 space-y-3 text-slate-300">
+                    {group.items.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 rounded-full bg-cyan-300" />
+                        <span className="text-[15px] leading-7 md:text-base">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="py-14">
-          <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8">
-            <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Professional Growth</p>
-            <h3 className="mt-3 text-3xl font-semibold">What this journey says about me</h3>
-            <p className="mt-4 max-w-4xl leading-8 text-slate-200">
+        <section id="certificates" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelB}`}>
+          <SectionHeading
+            eyebrow="Certifications"
+            title="Certifications"
+            accent="from-violet-400 via-fuchsia-400 to-pink-400"
+          />
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:mt-10 xl:gap-6">
+            {certificates.map((cert) => (
+              <div key={cert.title} className={`rounded-3xl bg-gradient-to-br ${cert.accent} p-[1px]`}>
+                <div className="rounded-3xl bg-slate-950/80 p-5 transition duration-300 hover:-translate-y-1 hover:bg-slate-900/90 sm:p-6">
+                  <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Certificate</p>
+                  <h4 className="mt-3 text-xl font-semibold leading-snug md:text-[1.2rem]">{cert.title}</h4>
+                  <p className="mt-3 text-slate-300">{cert.issuer}</p>
+                  <p className="mt-4 text-[15px] leading-8 text-slate-400 md:text-base">{cert.note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="education" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelC}`}>
+          <SectionHeading
+            eyebrow="Education"
+            title="Education background"
+            accent="from-emerald-400 via-cyan-400 to-sky-400"
+          />
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:mt-10 xl:gap-6">
+            <div className="rounded-3xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur sm:p-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h4 className="text-xl font-semibold leading-snug md:text-[1.3rem]">Bachelor of Engineering in Software Engineering</h4>
+                  <p className="mt-2 text-slate-300">University of Phayao</p>
+                </div>
+                <div className="shrink-0 whitespace-nowrap rounded-2xl bg-gradient-to-r from-cyan-500/20 to-violet-500/20 px-4 py-3 text-sm text-slate-200 ring-1 ring-white/10">
+                  2013 - 2016
+                </div>
+              </div>
+              <p className="mt-5 text-[15px] leading-8 text-slate-400 md:text-base">
+                Studied software engineering with focus on programming fundamentals, software development processes, and structured problem solving that later supported my work in QA and system analysis.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur sm:p-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h4 className="text-xl font-semibold leading-snug md:text-[1.3rem]">High School</h4>
+                  <p className="mt-2 text-slate-300">Singburi School</p>
+                </div>
+                <div className="shrink-0 whitespace-nowrap rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 px-4 py-3 text-sm text-slate-200 ring-1 ring-white/10">
+                  Graduated 2012
+                </div>
+              </div>
+              <p className="mt-5 text-[15px] leading-8 text-slate-400 md:text-base">
+                Completed upper secondary education and built the academic foundation that prepared me for engineering studies and a technical career path.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-[1.75rem] bg-gradient-to-br from-cyan-500/10 via-sky-500/8 to-violet-500/10 p-6 shadow-[0_20px_80px_rgba(6,182,212,0.08)] sm:p-8 lg:rounded-[2rem]">
+          <SectionHeading
+            eyebrow="Professional Positioning"
+            title="What this journey says about me"
+            accent="from-cyan-300 via-sky-300 to-violet-300"
+          />
+          <div className="mt-8 rounded-3xl bg-slate-950/55 p-6 ring-1 ring-white/10 backdrop-blur-xl sm:mt-10 sm:p-8">
+            <p className="max-w-4xl text-[15px] leading-8 text-slate-200 md:text-base">
               My career path shows steady growth from technical execution into wider business understanding. I have learned how to validate systems carefully, analyze requirements more deeply, coordinate across teams more effectively, and support software quality from both technical and operational perspectives. That combination helps me contribute not only as a tester, but as someone who understands the bigger picture behind each release.
             </p>
           </div>
         </section>
 
-        <section id="contact" className="py-14">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
-            <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Contact</p>
-            <h3 className="mt-3 text-3xl font-semibold">Let’s connect</h3>
-            <p className="mt-4 max-w-2xl leading-8 text-slate-300">
-              If you are looking for someone with experience in software testing, requirement analysis, API validation, and cross-functional collaboration, feel free to reach out.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-4 text-slate-100">
-              <a href="mailto:Kerlzero@gmail.com" className="rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15">
-                Kerlzero@gmail.com
-              </a>
-              <a href="#" className="rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15">
-                LinkedIn
-              </a>
-              <a href="#" className="rounded-2xl bg-white/10 px-5 py-3 hover:bg-white/15">
-                GitHub
-              </a>
+        <section id="contact" className={`rounded-[1.75rem] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.22)] sm:p-8 lg:rounded-[2rem] ${sectionStyles.panelD}`}>
+          <SectionHeading
+            eyebrow="Contact"
+            title="Let’s connect"
+            accent="from-amber-400 via-orange-400 to-rose-400"
+          />
+          <div className="mt-8 rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-xl sm:mt-10 sm:p-8">
+            <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-8">
+              <div>
+                <p className="text-base font-medium text-white sm:text-lg">Open to software testing and system analysis opportunities.</p>
+                <p className="mt-3 text-[15px] leading-8 text-slate-300 md:text-base">
+                  You can reach me directly by email or phone for job opportunities, project discussions, or professional networking.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                <a
+                  href="mailto:Kerlzero@gmail.com"
+                  className="rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-4 font-medium text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:scale-[1.02]"
+                >
+                  <div className="text-xs uppercase tracking-[0.2em] text-slate-800/70">Email</div>
+                  <div className="mt-2 text-sm">Kerlzero@gmail.com</div>
+                </a>
+                <a
+                  href="tel:093209xxxx"
+                  className="rounded-2xl bg-gradient-to-r from-violet-500/80 to-fuchsia-500/80 px-5 py-4 font-medium text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.02]"
+                >
+                  <div className="text-xs uppercase tracking-[0.2em] text-white/70">Phone</div>
+                  <div className="mt-2 text-sm">0932094456</div>
+                </a>
+              </div>
             </div>
           </div>
         </section>
