@@ -504,13 +504,13 @@ export default function ResumePortfolio() {
                 >
                   View My Journey
                 </a>
-                <a
+                {/* <a
                   href="/CV_Saran_11032026.pdf"
                   download
                   className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-violet-500/80 to-fuchsia-500/80 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.02] sm:px-6"
                 >
                   Download CV
-                </a>
+                </a> */}
               </div>
             </div>
 
