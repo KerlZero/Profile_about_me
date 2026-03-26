@@ -122,7 +122,7 @@ export default function HomePage() {
         </div>
 
         <Reveal className="min-w-0" delay={120} direction="right">
-          <div className="mx-auto flex w-full max-w-[22rem] flex-col items-center lg:ml-auto lg:items-start lg:-mt-[1rem]">
+          <div className="mx-auto flex w-full max-w-[22rem] flex-col items-center lg:ml-auto lg:items-start lg:-mt-[1.9375rem] lg:translate-x-[50px]">
             <HeroPhoto src="/profile.jpg" alt={profile.name} />
             <p className="mt-5 text-center text-sm uppercase tracking-[0.22em] text-slate-500 lg:text-left">
               <span className="block">Senior Software Tester</span>
