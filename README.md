@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Saran Chuephoodee Portfolio
 
-## Getting Started
+This project is a personal portfolio site built with Next.js 16, React 19, and Tailwind CSS 4.
 
-First, run the development server:
+## Local Development
+
+Run everything from the project folder:
 
 ```bash
+cd /Users/saranchu/my-profile-site
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Check
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To verify the production build locally:
 
-## Learn More
+```bash
+cd /Users/saranchu/my-profile-site
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Previous Tailwind Error
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you saw `Can't resolve 'tailwindcss' in '/Users/saranchu'`, the command was likely started from `/Users/saranchu` instead of this repo. This app has its own `package.json` and `node_modules`, so Next.js must be run from `/Users/saranchu/my-profile-site`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Main Files
 
-## Deploy on Vercel
+- `app/page.tsx`: homepage layout
+- `app/content.ts`: portfolio data
+- `app/layout.tsx`: metadata and app shell
+- `app/globals.css`: global styles
+- `app/robots.ts`: robots metadata
+- `app/sitemap.ts`: sitemap metadata
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The scripts use webpack explicitly because it is more reliable than Turbopack in this local environment.
+- Set `NEXT_PUBLIC_SITE_URL` in production so metadata and sitemap URLs use your real domain.
