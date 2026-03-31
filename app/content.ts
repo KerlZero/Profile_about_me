@@ -98,7 +98,7 @@ export const selectedWork: ExperienceItem[] = [
   {
     year: "2025",
     period: "Sep 2025 - Dec 2025",
-    role: "Senior Software Quality Assurance",
+    role: "Senior Software Quality Assurance (Contract)",
     company: "Accord Innovations",
     project: "Ascend Commerce",
     summary:
