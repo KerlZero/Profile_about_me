@@ -53,7 +53,7 @@ export const profile = {
   phoneDisplay: "0932094456",
   phoneHref: "tel:+66932094456",
   linkedinUrl: "https://www.linkedin.com/in/saran-chuephoodee-61aa9b3b7",
-  cvPath: "/CV_Saran_11032026.pdf",
+  cvPath: "/CV_Saran_27032026.pdf",
 };
 
 export const capabilities: CapabilityGroup[] = [
