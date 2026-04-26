@@ -39,13 +39,31 @@ export type DomainCard = {
   items: string[];
 };
 
+export type GitHubProjectSample = {
+  title: string;
+  subtitle: string;
+  description: string;
+  focus: string[];
+  url: string;
+  displayUrl: string;
+};
+
+export type SpecificationSample = {
+  title: string;
+  subtitle: string;
+  description: string;
+  imagePath: string;
+  url: string;
+  displayUrl: string;
+};
+
 export const profile = {
   name: "Saran Chuephoodee",
   title: "Senior Software Tester and System Analyst",
   location: "Thailand",
   greeting: "Hey, I&apos;m Saran.",
   intro:
-    "I am Saran Chuephoodee, Software Tester and System Analysis with 8 years of experience across Telecom, Insurance, and E-Commerce domains.",
+    "I am Saran Chuephoodee, Software Tester and System Analysis with 8 years of experience across Telecom and E-Commerce domains.",
   summary: "",
   headline:
     "Building quality across software, systems, and business workflows.",
@@ -53,7 +71,7 @@ export const profile = {
   phoneDisplay: "0932094456",
   phoneHref: "tel:+66932094456",
   linkedinUrl: "https://www.linkedin.com/in/saran-chuephoodee-61aa9b3b7",
-  cvPath: "/CV_Saran_27032026.pdf",
+  cvPath: "/CV_QA_Saran_26042026.pdf",
 };
 
 export const capabilities: CapabilityGroup[] = [
@@ -435,5 +453,55 @@ export const education = [
     period: "Graduated 2012",
     note:
       "Built the academic foundation that prepared me for engineering studies and a long-term technical career path.",
+  },
+];
+
+export const githubProjects: GitHubProjectSample[] = [
+  {
+    title: "Automation Test",
+    subtitle: "Practical support for manual testing workflows",
+    description:
+      "A utility automation project built to reduce execution time in long and repetitive manual testing scenarios.",
+    focus: [
+      "Supports repeated execution paths",
+      "Reduces time spent on lengthy test flows",
+      "Designed for practical day-to-day testing support",
+    ],
+    url: "https://github.com/KerlZero/Automation-Test.git",
+    displayUrl: "github.com/KerlZero/Automation-Test",
+  },
+  {
+    title: "Sauce Demo E2E",
+    subtitle: "Full end-to-end automation example",
+    description:
+      "A demo project that presents a complete E2E flow, written as a reference for clear and maintainable end-to-end automation.",
+    focus: [
+      "Covers a complete user journey",
+      "Demonstrates E2E structure clearly",
+      "Serves as a reference implementation",
+    ],
+    url: "https://github.com/KerlZero/example_automate_sauce_demo.git",
+    displayUrl: "github.com/KerlZero/example_automate_sauce_demo",
+  },
+];
+
+export const specificationSamples: SpecificationSample[] = [
+  {
+    title: "Flow Sample",
+    subtitle: "Structured process and system mapping",
+    description:
+      "A structured flow preview showing how process steps and system logic are mapped for discussion, review, and implementation alignment.",
+    imagePath: "/flow_sample.png?v=20260427-2",
+    url: "https://github.com/KerlZero/Handle_Specification_AA.git",
+    displayUrl: "github.com/KerlZero/Handle_Specification_AA",
+  },
+  {
+    title: "Document Sample",
+    subtitle: "Scope, conditions, and expected behavior",
+    description:
+      "A document excerpt showing how scope, conditions, and expected behavior are framed to support clearer requirement communication.",
+    imagePath: "/doc_sample.png?v=20260427-2",
+    url: "https://github.com/KerlZero/Handle_Specification_AA.git",
+    displayUrl: "github.com/KerlZero/Handle_Specification_AA",
   },
 ];

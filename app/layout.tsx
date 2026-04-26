@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: "Saran Chuephoodee | Senior Software Tester and System Analyst",
   description:
-    "Portfolio of Saran Chuephoodee, a Senior Software Tester and System Analyst with experience across telecom, insurance, and e-commerce platforms.",
+    "Portfolio of Saran Chuephoodee, a Senior Software Tester and System Analyst with experience across telecom and e-commerce platforms.",
   keywords: [
     "Saran Chuephoodee",
     "Software Tester",

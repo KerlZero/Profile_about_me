@@ -2,14 +2,17 @@ import {
   credentials,
   domainExposure,
   education,
+  githubProjects,
   notes,
   profile,
+  specificationSamples,
   timeline,
 } from "./content";
 import { Reveal } from "./components/reveal";
 import { HeroPhoto } from "./components/hero-photo";
 import { SiteHeader } from "./components/site-header";
 import { TimelineSection } from "./components/timeline-section";
+import { WorkSamplesSection } from "./components/work-samples-section";
 
 const navItems = [
   { href: "#about", label: "About" },
@@ -104,10 +107,18 @@ export default function HomePage() {
                   View timeline
                 </a>
                 <a
-                  href={profile.cvPath}
+                  href="/CV_QA_Saran_26042026.pdf"
+                  download="CV_QA_Saran_26042026.pdf"
                   className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-white/40 hover:text-white"
                 >
-                  Download CV
+                  Download QA CV
+                </a>
+                <a
+                  href="/CV_SA_Saran_26042026.pdf"
+                  download="CV_SA_Saran_26042026.pdf"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
+                >
+                  Download SA CV
                 </a>
               </div>
             </div>
@@ -329,10 +340,20 @@ export default function HomePage() {
       </section>
 
       <section
+        id="work-samples"
+        className="snap-start snap-always mx-auto flex min-h-screen max-w-6xl items-center px-5 py-12 sm:px-8 md:py-16"
+      >
+        <WorkSamplesSection
+          githubProjects={githubProjects}
+          specificationSamples={specificationSamples}
+        />
+      </section>
+
+      <section
         id="contact"
         className="snap-start snap-always mx-auto flex min-h-screen max-w-6xl items-center px-5 py-12 sm:px-8 md:py-16"
       >
-        <div className="grid gap-8 md:grid-cols-[220px_1fr]">
+        <div className="grid gap-8 md:grid-cols-[250px_1fr]">
           <Reveal>
             <div>
               <p className="section-kicker">Contact</p>
@@ -378,7 +399,7 @@ export default function HomePage() {
 
       <footer className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 text-sm text-slate-500 sm:px-8 md:flex-row md:items-center md:justify-between">
         <p>
-          © 2026 {profile.name}. Designed and built for a calmer, editorial presentation.
+          © 2026 {profile.name}.
         </p>
         <div className="flex flex-wrap gap-5">
           <a href="#top" className="transition hover:text-white">
