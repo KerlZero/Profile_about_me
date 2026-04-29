@@ -57,6 +57,16 @@ export type SpecificationSample = {
   displayUrl: string;
 };
 
+export type AICoworkProjectSample = {
+  title: string;
+  subtitle: string;
+  description: string;
+  focus: string[];
+  status?: string;
+  url: string;
+  displayUrl: string;
+};
+
 export const profile = {
   name: "Saran Chuephoodee",
   title: "Senior Software Tester and System Analyst",
@@ -492,8 +502,8 @@ export const specificationSamples: SpecificationSample[] = [
     description:
       "A structured flow preview showing how process steps and system logic are mapped for discussion, review, and implementation alignment.",
     imagePath: "/flow_sample.png?v=20260427-2",
-    url: "https://github.com/KerlZero/Handle_Specification_AA.git",
-    displayUrl: "github.com/KerlZero/Handle_Specification_AA",
+    url: "https://github.com/KerlZero/Handle_Specification.git",
+    displayUrl: "github.com/KerlZero/Handle_Specification",
   },
   {
     title: "Document Sample",
@@ -501,7 +511,64 @@ export const specificationSamples: SpecificationSample[] = [
     description:
       "A document excerpt showing how scope, conditions, and expected behavior are framed to support clearer requirement communication.",
     imagePath: "/doc_sample.png?v=20260427-2",
-    url: "https://github.com/KerlZero/Handle_Specification_AA.git",
-    displayUrl: "github.com/KerlZero/Handle_Specification_AA",
+    url: "https://github.com/KerlZero/Handle_Specification.git",
+    displayUrl: "github.com/KerlZero/Handle_Specification",
+  },
+];
+
+export const aiCoworkProjects: AICoworkProjectSample[] = [
+  {
+    title: "Local API Automation Lab",
+    subtitle: "QA API simulation practice",
+    description:
+      "A local API practice project designed to simulate internal and external API behavior for QA automation scenarios.",
+    focus: [
+      "Local API simulation for controlled test practice",
+      "Supports API automation design from a QA perspective",
+      "Useful for validating internal and external service behavior",
+    ],
+    url: "https://github.com/KerlZero/CoreAPI_APITEST.git",
+    displayUrl: "github.com/KerlZero/CoreAPI_APITEST",
+  },
+  {
+    title: "AI-assisted Portfolio Build",
+    subtitle: "AI-supported coding and design iteration",
+    description:
+      "A personal profile website built through AI-assisted coding, layout refinement, visual direction, and portfolio content design.",
+    focus: [
+      "Uses AI support across frontend coding and visual polish",
+      "References personal website patterns for structure and layout",
+      "Combines portfolio storytelling with iterative design decisions",
+    ],
+    url: "https://github.com/KerlZero/Profile_about_me.git",
+    displayUrl: "github.com/KerlZero/Profile_about_me",
+  },
+  {
+    title: "Full AI Co-work Company Simulation",
+    subtitle: "Multi-agent software delivery workflow",
+    description:
+      "An experimental sub-agent workflow that simulates a software project team across management, design, development, QA, and DevOps responsibilities.",
+    focus: [
+      "Models project-level collaboration across multiple software roles",
+      "Explores task ownership from planning through delivery",
+      "Designed as an AI cowork simulation for end-to-end execution",
+    ],
+    status: "In development",
+    url: "https://github.com/KerlZero/AI_Cowork_Development.git",
+    displayUrl: "github.com/KerlZero/AI_Cowork_Development",
+  },
+  {
+    title: "QA Team Process Simulation",
+    subtitle: "Test Lead, Manual QA, and Automation QA workflow",
+    description:
+      "A QA-focused sub-agent simulation where a Test Lead coordinates with Manual QA and Automation QA roles through a structured testing process.",
+    focus: [
+      "Simulates QA collaboration between lead, manual, and automation roles",
+      "Frames test planning, execution, and automation support as a workflow",
+      "Explores how QA process ownership can be structured with AI agents",
+    ],
+    status: "In development",
+    url: "https://github.com/KerlZero/Process-Lead-Test.git",
+    displayUrl: "github.com/KerlZero/Process-Lead-Test",
   },
 ];

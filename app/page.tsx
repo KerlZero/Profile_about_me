@@ -1,4 +1,5 @@
 import {
+  aiCoworkProjects,
   credentials,
   domainExposure,
   education,
@@ -19,6 +20,7 @@ const navItems = [
   { href: "#notes", label: "Notes" },
   { href: "#timeline", label: "Timeline" },
   { href: "#domains", label: "Domains" },
+  { href: "#work-samples", label: "Work" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -105,20 +107,6 @@ export default function HomePage() {
                   className="inline-flex items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:border-cyan-200 hover:bg-cyan-300/20"
                 >
                   View timeline
-                </a>
-                <a
-                  href="/CV_QA_Saran_26042026.pdf"
-                  download="CV_QA_Saran_26042026.pdf"
-                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-white/40 hover:text-white"
-                >
-                  Download QA CV
-                </a>
-                <a
-                  href="/CV_SA_Saran_26042026.pdf"
-                  download="CV_SA_Saran_26042026.pdf"
-                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
-                >
-                  Download SA CV
                 </a>
               </div>
             </div>
@@ -346,6 +334,7 @@ export default function HomePage() {
         <WorkSamplesSection
           githubProjects={githubProjects}
           specificationSamples={specificationSamples}
+          aiCoworkProjects={aiCoworkProjects}
         />
       </section>
 
@@ -377,6 +366,20 @@ export default function HomePage() {
               Open to thoughtful conversations around software quality, system analysis, delivery support, and collaborative work across teams. If there is an opportunity to contribute through careful validation and structured execution, I would be pleased to connect.
             </p>
             <div className="mt-8 flex flex-col items-end gap-4 sm:flex-row sm:flex-wrap sm:justify-end">
+              <a
+                href="/CV_QA_Saran_26042026.pdf"
+                download="CV_QA_Saran_26042026.pdf"
+                className="inline-flex w-full max-w-xs items-center justify-center rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-white sm:w-auto"
+              >
+                Download CV QA
+              </a>
+              <a
+                href="/CV_SA_Saran_26042026.pdf"
+                download="CV_SA_Saran_26042026.pdf"
+                className="inline-flex w-full max-w-xs items-center justify-center rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-white sm:w-auto"
+              >
+                Download CV SA
+              </a>
               <a
                 href={`mailto:${profile.email}`}
                 className="inline-flex w-full max-w-xs items-center justify-center rounded-full bg-cyan-300 px-6 py-3 text-sm font-medium text-slate-950 transition hover:bg-cyan-200 sm:w-auto"

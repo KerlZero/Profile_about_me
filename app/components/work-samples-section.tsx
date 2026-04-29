@@ -2,19 +2,25 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { GitHubProjectSample, SpecificationSample } from "../content";
+import type {
+  AICoworkProjectSample,
+  GitHubProjectSample,
+  SpecificationSample,
+} from "../content";
 import { Reveal } from "./reveal";
 
 type WorkSamplesSectionProps = {
   githubProjects: GitHubProjectSample[];
   specificationSamples: SpecificationSample[];
+  aiCoworkProjects: AICoworkProjectSample[];
 };
 
-type ModalType = "github" | "specifications" | null;
+type ModalType = "github" | "specifications" | "aiCowork" | null;
 
 export function WorkSamplesSection({
   githubProjects,
   specificationSamples,
+  aiCoworkProjects,
 }: WorkSamplesSectionProps) {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,90 +73,112 @@ export function WorkSamplesSection({
               samples.
             </h2>
             <p className="mt-5 max-w-[18rem] text-base leading-8 text-slate-300">
-              Selected examples of automation work and supporting
-              specifications that reflect both hands-on execution and the way
-              system details are structured for review.
+              Selected examples of automation work, supporting specifications,
+              and AI-assisted project workflows that reflect hands-on
+              execution, system structure, and delivery-oriented thinking.
             </p>
           </div>
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
           <Reveal className="h-full" direction="left" delay={60}>
             <button
               type="button"
-              onClick={() => openModal("github")}
+              onClick={() => openModal("aiCowork")}
               className="panel-surface panel-cyan interactive-panel flex h-full w-full flex-col rounded-[1.85rem] border border-white/10 bg-white/5 p-6 text-left"
             >
               <p className="text-sm uppercase tracking-[0.22em] text-cyan-200/80">
-                GitHub Projects
+                AI cowork project
               </p>
               <h3 className="mt-5 text-3xl tracking-[-0.04em] text-white">
-                Automation
+                AI-assisted execution
                 <br />
-                execution samples.
+                and team simulation samples.
               </h3>
-              <p className="mt-5 max-w-md text-base leading-8 text-slate-300">
-                Two repository samples for
-                <br />
-                practical workflow support
-                <br />
-                and full end-to-end coverage.
+              <p className="mt-5 max-w-xl text-base leading-8 text-slate-300">
+                Four project samples covering local API simulation, portfolio
+                build, software team simulation, and QA team workflow design.
               </p>
               <div className="mt-8 grid gap-3">
-                {githubProjects.map((project) => (
+                {aiCoworkProjects.slice(0, 2).map((project) => (
                   <div
                     key={project.title}
                     className="rounded-[1.15rem] border border-white/10 bg-slate-950/15 px-4 py-4"
                   >
                     <p className="text-lg text-white">{project.title}</p>
-                    <p className="mt-1 text-sm text-slate-400">
-                      {project.subtitle}
+                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                      {project.title === "Local API Automation Lab" ? (
+                        <>
+                          Local API simulation for
+                          <br />
+                          QA automation practice.
+                        </>
+                      ) : (
+                        <>
+                          AI-supported coding and
+                          <br />
+                          interface design polish.
+                        </>
+                      )}
                     </p>
                   </div>
                 ))}
               </div>
-              <span className="mt-8 inline-flex w-fit items-center rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-cyan-100">
+              <span className="mt-auto inline-flex w-fit items-center self-end rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-cyan-100">
                 Open details
               </span>
             </button>
           </Reveal>
 
-          <Reveal className="h-full" direction="right" delay={120}>
-            <button
-              type="button"
-              onClick={() => openModal("specifications")}
-              className="panel-surface panel-violet interactive-panel flex h-full w-full flex-col rounded-[1.85rem] border border-white/10 bg-white/5 p-6 text-left"
-            >
-              <p className="text-sm uppercase tracking-[0.22em] text-cyan-200/80">
-                Specifications
-              </p>
-              <h3 className="mt-5 text-3xl tracking-[-0.04em] text-white">
-                Flow and
-                <br />
-                document previews.
-              </h3>
-              <p className="mt-5 max-w-md text-base leading-8 text-slate-300">
-                Flow and document samples that show how logic, scope, and
-                validation points are organized in working specifications.
-              </p>
-              <div className="mt-8 grid gap-3">
-                {specificationSamples.map((sample) => (
-                  <div
-                    key={sample.title}
-                    className="rounded-[1.15rem] border border-white/10 bg-slate-950/15 px-4 py-4"
-                  >
-                    <p className="text-lg text-white">{sample.title}</p>
-                    <p className="mt-1 text-sm text-slate-400">
-                      {sample.subtitle}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <span className="mt-8 inline-flex w-fit items-center rounded-full border border-violet-300/25 bg-violet-300/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-violet-100">
-                Open details
-              </span>
-            </button>
-          </Reveal>
+          <div className="grid gap-6 lg:grid-rows-2">
+            <Reveal className="h-full" direction="right" delay={120}>
+              <button
+                type="button"
+                onClick={() => openModal("specifications")}
+                className="panel-surface panel-violet interactive-panel flex h-full w-full flex-col rounded-[1.85rem] border border-white/10 bg-white/5 p-6 text-left"
+              >
+                <p className="text-sm uppercase tracking-[0.22em] text-cyan-200/80">
+                  Specifications
+                </p>
+                <h3 className="mt-5 text-3xl tracking-[-0.04em] text-white">
+                  Flow and
+                  <br />
+                  document previews.
+                </h3>
+                <p className="mt-5 max-w-md text-base leading-8 text-slate-300">
+                  Flow and document samples that show how logic, scope, and
+                  validation points are organized in working specifications.
+                </p>
+                <span className="mt-auto inline-flex w-fit items-center self-end rounded-full border border-violet-300/25 bg-violet-300/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-violet-100">
+                  Open details
+                </span>
+              </button>
+            </Reveal>
+
+            <Reveal className="h-full" direction="right" delay={120}>
+              <button
+                type="button"
+                onClick={() => openModal("github")}
+                className="panel-surface panel-cyan interactive-panel flex h-full w-full flex-col rounded-[1.85rem] border border-white/10 bg-white/5 p-6 text-left"
+              >
+                <p className="text-sm uppercase tracking-[0.22em] text-cyan-200/80">
+                  Automate Projects
+                </p>
+                <h3 className="mt-5 text-3xl tracking-[-0.04em] text-white">
+                  Automation
+                  <br />
+                  execution samples.
+                </h3>
+                <p className="mt-5 max-w-md text-base leading-8 text-slate-300">
+                  Two automation samples for practical support and full
+                  end-to-end execution.
+                </p>
+                <span className="mt-auto inline-flex w-fit items-center self-end rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-cyan-100">
+                  Open details
+                </span>
+              </button>
+            </Reveal>
+          </div>
         </div>
       </div>
 
@@ -172,6 +200,11 @@ export function WorkSamplesSection({
             {activeModal === "github" ? (
               <GitHubProjectsModal
                 projects={githubProjects}
+                onClose={closeModal}
+              />
+            ) : activeModal === "aiCowork" ? (
+              <AICoworkProjectsModal
+                projects={aiCoworkProjects}
                 onClose={closeModal}
               />
             ) : (
@@ -199,7 +232,7 @@ function GitHubProjectsModal({
       <div className="flex items-start justify-between gap-6">
         <div className="max-w-3xl">
           <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/80">
-            GitHub Projects
+            Automate Projects
           </p>
           <h3 className="mt-3 text-3xl leading-tight tracking-[-0.04em] text-white sm:text-[2.35rem]">
             Practical automation and
@@ -269,6 +302,97 @@ function GitHubProjectsModal({
   );
 }
 
+function AICoworkProjectsModal({
+  projects,
+  onClose,
+}: {
+  projects: AICoworkProjectSample[];
+  onClose: () => void;
+}) {
+  return (
+    <div>
+      <div className="flex items-start justify-between gap-6">
+        <div className="max-w-3xl">
+          <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/80">
+            AI cowork project
+          </p>
+          <h3 className="mt-3 text-3xl leading-tight tracking-[-0.04em] text-white sm:text-[2.35rem]">
+            AI-assisted project work and
+            <br />
+            multi-agent workflow experiments.
+          </h3>
+          <p className="mt-4 text-base leading-8 text-slate-300">
+            A focused collection of project samples exploring how AI can
+            support QA, software delivery, local API testing practice, and
+            structured team workflows.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-full border border-white/15 px-4 py-2 text-sm text-slate-200 transition hover:border-white/40 hover:text-white"
+        >
+          Close
+        </button>
+      </div>
+
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        {projects.map((project, index) => (
+          <section
+            key={project.title}
+            className={`panel-surface interactive-panel flex min-h-[26rem] flex-col rounded-[1.6rem] border border-white/10 bg-white/5 p-6 ${
+              index % 2 === 0 ? "panel-cyan" : "panel-violet"
+            }`}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/80">
+                  {project.subtitle}
+                </p>
+                <h4 className="mt-3 text-2xl tracking-[-0.03em] text-white sm:text-[2rem]">
+                  {project.title}
+                </h4>
+              </div>
+              {project.status ? (
+                <span className="shrink-0 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.16em] text-cyan-100">
+                  {project.status}
+                </span>
+              ) : null}
+            </div>
+
+            <p className="mt-5 text-base leading-8 text-slate-300">
+              {project.description}
+            </p>
+
+            <div className="mt-6 grid gap-3">
+              {project.focus.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[1.15rem] border border-white/10 bg-slate-950/20 p-4"
+                >
+                  <p className="text-sm leading-7 text-slate-300">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-auto flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-slate-500">{project.displayUrl}</p>
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex shrink-0 items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-300/10 px-5 py-2.5 text-sm font-medium text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-300/20 hover:text-white"
+              >
+                View on GitHub
+              </a>
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function SpecificationsModal({
   samples,
   onClose,
@@ -321,6 +445,26 @@ function SpecificationsModal({
               <p className="mt-4 text-base leading-8 text-slate-300">
                 {sample.description}
               </p>
+              {sample.title === "Document Sample" ? (
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <a
+                    href="https://docs.google.com/document/d/1wSwQiJvh2P1kEYsU6Ut9W2yoA8LjeeYn/edit"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-300/20 hover:text-white"
+                  >
+                    Doc1
+                  </a>
+                  <a
+                    href="https://docs.google.com/document/d/12LUkjge92yuHTBEbVZgzPgKbs8iK3_PT/edit"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-300/20 hover:text-white"
+                  >
+                    Doc2
+                  </a>
+                </div>
+              ) : null}
             </div>
 
             <div className="flex h-full flex-col p-6 pt-0">
