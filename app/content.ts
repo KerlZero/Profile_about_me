@@ -159,6 +159,7 @@ export const selectedWork: ExperienceItem[] = [
       "Scheduled jobs",
       "Defect management",
       "Stakeholder communication",
+      "Playwright(Typescript) UI E2E testing",
     ],
     keyTakeaway:
       "This experience reinforced the value of combining technical validation with strong requirement understanding and clear communication to support both software quality and sound business decisions.",
@@ -201,6 +202,7 @@ export const selectedWork: ExperienceItem[] = [
       "Android Studio",
       "Xcode",
       "Power Automate",
+      "Playwright(Typescript) UI E2E testing",
       "Test Planning",
     ],
     keyTakeaway:
@@ -468,7 +470,7 @@ export const education = [
 
 export const githubProjects: GitHubProjectSample[] = [
   {
-    title: "Automation Test",
+    title: "Automation Test Playwright(Typescript)",
     subtitle: "Practical support for manual testing workflows",
     description:
       "A utility automation project built to reduce execution time in long and repetitive manual testing scenarios.",
@@ -481,7 +483,7 @@ export const githubProjects: GitHubProjectSample[] = [
     displayUrl: "github.com/KerlZero/Automation-Test",
   },
   {
-    title: "Sauce Demo E2E",
+    title: "Sauce Demo E2E Playwright(Typescript)",
     subtitle: "Full end-to-end automation example",
     description:
       "A demo project that presents a complete E2E flow, written as a reference for clear and maintainable end-to-end automation.",
