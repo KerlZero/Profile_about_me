@@ -503,7 +503,7 @@ export const specificationSamples: SpecificationSample[] = [
     subtitle: "Structured process and system mapping",
     description:
       "A structured flow preview showing how process steps and system logic are mapped for discussion, review, and implementation alignment.",
-    imagePath: "/flow_sample.png?v=20260427-2",
+    imagePath: "/flow WTTX.PNG?v=20260427-2",
     url: "https://github.com/KerlZero/Handle_Specification.git",
     displayUrl: "github.com/KerlZero/Handle_Specification",
   },
