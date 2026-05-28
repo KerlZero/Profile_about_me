@@ -367,15 +367,15 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-col items-end gap-4 sm:flex-row sm:flex-wrap sm:justify-end">
               <a
-                href="/CV_QA_Saran_29042026.pdf"
-                download="CV_QA_Saran_29042026.pdf"
+                href="/CV_QA_Saran_052026.pdf"
+                download="CV_QA_Saran_052026.pdf"
                 className="inline-flex w-full max-w-xs items-center justify-center rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-white sm:w-auto"
               >
                 Download CV QA
               </a>
               <a
-                href="/CV_SA_Saran_29042026.pdf"
-                download="CV_SA_Saran_29042026.pdf"
+                href="/CV_SA_Saran_052026.pdf"
+                download="CV_SA_Saran_052026.pdf"
                 className="inline-flex w-full max-w-xs items-center justify-center rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:text-white sm:w-auto"
               >
                 Download CV SA
